@@ -1,0 +1,65 @@
+package com.example.demo.restControllerr;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Entry;
+import com.example.demo.model.User;
+import com.example.demo.model.api.EntryAPI;
+import com.example.demo.model.api.LikeAPI;
+import com.example.demo.services.EntryServices;
+import com.example.demo.services.LikeService;
+import com.example.demo.services.UserService;
+
+@RestController
+public class PostRest {
+
+	@Autowired
+	EntryServices entryService;
+
+	@Autowired
+	LikeService likeService;
+
+	@Autowired
+	UserService userService;
+
+	@PostMapping("/postEntry")
+	public ResponseEntity<Object> postEntry(@RequestBody EntryAPI entry) {
+
+		entryService.entrySave(entry.getEntry(), entry.getPostId());
+
+		return new ResponseEntity<Object>("veri eklendi", HttpStatus.OK);
+
+	}
+
+	@PostMapping("/postLike")
+	public ResponseEntity<Object> postLike(@RequestBody LikeAPI likeApi) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByMail(auth.getName());
+		
+		Entry entry = entryService.getEntry(likeApi.getEntryId());
+
+		likeService.likeadd(user, entry, likeApi.isRating());
+
+		EntryAPI entryAPI = new EntryAPI();
+
+		entryAPI.setEntry(entry.getContent());
+		entryAPI.setTitle(entry.getSharing().getTitle());
+		entryAPI.setLikeCount(likeService.likeCount(entry, true));
+		entryAPI.setDislikeCount(likeService.likeCount(entry, false));
+
+		if (likeService.getLastLike(entry, user) != null)
+			entryAPI.setLastLike(likeService.getLastLike(entry, user).get(0).isRating());
+		else
+			entryAPI.setLastLike(null);
+
+		return new ResponseEntity<Object>(entryAPI, HttpStatus.OK);
+	}
+
+}

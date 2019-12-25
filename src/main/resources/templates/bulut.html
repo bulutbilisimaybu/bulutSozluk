@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+	crossorigin="anonymous">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css"
+	rel="stylesheet" />
+<title>Bulut Sözlük</title>
+
+<style>
+.topnav a:hover {
+	border-bottom: 3px solid #279bc7;
+}
+
+.topnav a.active {
+	border-bottom: 3px solid #3c96a5;
+}
+
+header {
+	font-family: 'Lobster', cursive;
+	text-align: center;
+	font-size: 25px;
+	background-color: white !important;
+}
+
+#info {
+	font-size: 18px;
+	color: #555;
+	text-align: center;
+	margin-bottom: 25px;
+	background-color: white !important;
+}
+
+a {
+	color: #074E8C;
+	background-color: white !important;
+}
+
+.scrollbar {
+	margin-left: 30px;
+	float: left;
+	height: 700px !important;
+	width: 500px;
+	background-color: white !important;
+	overflow-y: scroll;
+}
+
+}
+.force-overflow {
+	min-height: 450px;
+	background-color: white !important;
+}
+
+#wrapper {
+	text-align: center;
+	width: 500px;
+	margin: auto;
+	background-color: white !important;
+}
+
+body {
+	margin: 0;
+}
+
+.topnav {
+	overflow: hidden;
+}
+
+.topnav a {
+	float: left;
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 15px;
+	border-bottom: 3px;
+}
+
+header {
+	font-family: 'Lobster', cursive;
+	text-align: center;
+	font-size: 25px;
+}
+
+#info {
+	font-size: 18px;
+	color: #555;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+a {
+	color: #074E8C;
+}
+
+/*
+ *  STYLE 15
+ */
+#style-15::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#style-15::-webkit-scrollbar {
+	width: 2px;
+	background-color: #F5F5F5;
+}
+
+#style-15::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #FFF;
+	background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(#3c96a5),
+		to(#3c96a5), color-stop(.6, #3c96a5))
+}
+
+.link {
+	color: #3c96a5 !important;
+}
+</style>
+</head>
+
+<body onload="categoryList();SharingList();sharing2List();">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Giriş</h5>
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div id="message"></div>
+				<div class="modal-body">
+					<form method="post" action='' name="login_form">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-user"></i>
+								</span>
+							</div>
+							<input class="form-control" id="username"
+								placeholder="Kullanıcı Adı" type="text" value="">
+						</div>
+
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-lock"></i>
+								</span>
+							</div>
+							<input class="form-control" id="password" placeholder="Şifre"
+								type="password" value="">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Kapat</button>
+						<a th:href="@{/logout}" class="btn btn-info" role="button">çıkış</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid"
+		style="background-color: #3c96a5; height: 4px"></div>
+
+	<div class="container-fluid" style="width: 60%;">
+		<div class="row">
+			<div class="col-md-3" style="margin-top: 5px">
+				<img th:src="@{/images/logo.png}" width=180 alt="">
+			</div>
+			<div class="col-md-6" style="margin-top: 20px">
+
+
+				<form class="form-inline my-1 my-lg-0">
+					<input list="search" type="text" id="searchvalue"
+						style="width: 80%; border-radius: 5px; border-color: blue"
+						placeholder="yazar,#Entry,Başlık" onchange="degis();"
+						oninput="tolga();degis();" />
+					<datalist id="search">
+
+					</datalist>
+					<button class="btn btn-outline-info" type="submit"
+						style="height: 30px">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</div>
+			<div class="col-md-3 text-right" style="margin-top: 20px">
+				<a th:href="@{/logout}" >çıkış</a>
+			
+				<a href="/register"> kayıt ol</a>
+			</div>
+			<div><span th:text="${userId}">s</span></div>
+		</div>
+
+
+	</div>
+	<script>
+	 function entryOfSharings(id){
+			
+		 
+
+		 
+		 var html='';
+		 
+		 $.ajax({
+		      method: "GET",
+		      url: "http://localhost:8080/getentrypost",
+		      
+		      data: {id:id},
+		      async:false,
+		     
+
+		      success: function (data) {
+		    	  	
+		    		 html+=	'<div class="card-body">';
+	        		 html+=	' <h5 class="card-title">'+data.title+'</h5>';
+	        		 
+	        	 	 html+=	' <p class="card-text">'+data.entry+'</p>';
+	        	 	 
+	 
+		       
+		        	 	
+		   	    			 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data.postId+','+data.postId+')"><i id="sayac'+data.postId +'" class="fas fa-angle-up">'+data.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data.postId+','+data.postId+')"><i id="down'+data.postId+'" class="fas fa-angle-down">'+data.dislikeCount+'</i> </a></footer>';
+		    				 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data.date+'</span></footer>';
+		    				 html+='<hr>';
+		        	 	 
+
+
+		    	
+
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		        
+		        
+		        
+		        
+
+		      }
+
+		    
+		    	
+		    });
+		 
+		 html+='<hr>';
+	 	
+		  
+	 	document.getElementById('sharingList').innerHTML = html;
+	  
+	}
+	
+	</script>
+	<script>
+funcsayi=0;
+function tolga(){
+	
+
+
+let key=document.getElementById("searchvalue").value;
+if(key.charAt(0)=="#"){
+	document.getElementById("search").innerHTML= '';
+	key=key.slice(1);
+
+	$.ajax({
+	    method: "GET",
+	    url: "http://localhost:8080/entryListByContent",
+	    data: {content:key},
+		async:false,
+	    success: function (data) {
+	    	var html='';
+	    	data.forEach(element=>{	 
+	    		
+	    		html+='<option data-value="#'+element.id+'" value="'+element.sharing.title+'"> #'+element.content+'</option>';
+	    		document.getElementById("search").innerHTML=html;
+	    		
+	    	 })
+
+		    	
+		    	
+	    }
+	    
+	    
+	    });
+}
+
+else if(key.charAt(0)=="@"){
+	key=key.slice(1);
+}
+else{
+	document.getElementById("search").innerHTML= '';
+
+	$.ajax({
+	    method: "GET",
+	    url: "http://localhost:8080/SharingListByTitle",
+	    data: {title:key},
+		async:false,
+	    success: function (data) {
+	    	var html='';
+	    	data.forEach(element=>{	 
+	    		html+='<option data-value="s'+element.id+'"  >'+element.title+'</option>';
+	    		
+	    		document.getElementById("search").innerHTML=html;
+ })
+
+	    	
+	    	
+	    }
+	    
+	    
+	    });
+}
+}
+    
+
+</script>
+	<script>
+function degis(){
+	let ye=document.getElementById('search').options[0].dataset.value;
+	if(ye.charAt(0)==="s"){
+		ye=ye.slice(1);
+		entryOfSharing(ye);
+	}
+	else if(ye.charAt(0)==="#"){
+		ye=ye.slice(1);
+		entryOfSharings(ye);
+	}
+}
+let sharingId=0;
+
+
+</script>
+
+	<div class="container-fluid topnav"
+		style="width: 60%; margin-top: 10px;">
+
+		<div class="row">
+			<div class="col-md-10">
+				<div class="row" style="color: black;" id="categoryList"></div>
+
+			</div>
+
+
+
+			<div class="col-md-2" style="margin-top: 10px">
+				<div class="row">
+					<div class="col-md-6">
+						<img th:src="@{/images/pena.png}" style="width: 30px">
+					</div>
+					<div class="col-md-6">
+						<img th:src="@{/images/eksi.png}" class="img-fluid"
+							style="width: 30px">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid"
+		style="background-color: lightgray; height: 1px"></div>
+
+	<div class="container-fluid topnav"
+		style="width: 70%; margin-top: 10px">
+
+		<div class="row" style="margin-top: 5px">
+			<div class="col-md-3 scrollbar" id="style-15">
+				<li id="kamuran" class="list-group-item success "
+					style="border: none"><span style="color: gray">Gündem</span></li>
+				<ul class="list-group-flush" id="sharing2List">
+
+				</ul>
+			</div>
+			<div class="col-md-8">
+				<img th:src="@{/images/res.png}" class="img-fluid" alt="...">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="card"
+							style="margin-top: 10px; width: 100%; border: none"
+							id="sharingList"></div>
+
+
+					</div>
+
+					<div class="col-md-4">
+						<img th:src="@{/images/reklam.png}" style="width: 100%">
+					</div>
+
+				</div>
+				<hr>
+				</hr>
+
+				<div class="row" style="margin-bottom: 30px">
+
+					<div class="col-md-2">iletişim</div>
+					<div class="col-md-2">reklam</div>
+					<div class="col-md-2">kariyer</div>
+					<div class="col-md-3">kullanım koşulları</div>
+					<div class="col-md-1">sss</div>
+					<div class="col-md-1">istatistik</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+	function login(){
+		var deger=false;
+		 $.ajax({
+		      method: "GET",
+		      url: "http://localhost:8080/userList",
+		      data: {
+		    	  	mail: $("#username").val(),
+		            password: $("#password").val()
+		        },
+
+		      success: function (data) {
+		    	  	debugger
+		    	  	
+		    	  	data.forEach(element=>{
+		    	  		if(element.mail===$("#username").val() && element.password=== $("#password").val()){
+		    	  			deger=true;
+		    	  		}
+		    	  	
+		    	  	})
+		    	  	html='';
+		            if (deger === true) {
+		            	alert('GİRİŞBAŞARILII');
+		                window.location.replace('/bulutPage');
+		            }
+		            else {
+		            	html+='  <div class="alert alert-danger" role="alert">Kullanıcı Adı veya Şifre yanlış</div>';
+
+		            	document.getElementById('message').innerHTML = html;
+		            }
+		        
+		   
+
+		      }
+
+		    });
+		
+		
+	}
+function categoryList(){
+	
+    $.ajax({
+      method: "GET",
+      url: "http://localhost:8080/categoryList",
+     
+
+      success: function (data) {
+    	  
+    	var html='';
+    	debugger;
+        data.forEach(element => {
+
+         
+        if(element.categoryName!=="..."){
+        	
+        html+=	'  <div class="col-md-2" style="width: 12.49995%"> <a href="#" onclick="sharingOfCategory('+element.id+')"><b style="font-size: 13px" >'+element.categoryName+'</b></a> </div>';	
+
+        }
+
+
+        });
+        
+        
+       
+        document.getElementById('categoryList').innerHTML = html;
+
+      }
+
+    });
+    
+  
+}
+
+function sharingOfCategory(id){
+	
+	 $.ajax({
+	      method: "GET",
+	      url: "http://localhost:8080/getSharingOfCategory",
+	      
+	      data: {id:id},
+	     
+
+	      success: function (data) {
+	    	  
+	    	  
+	    	var html='';
+	        data.forEach(element => {
+				$.ajax({ method: "GET", url: "http://localhost:8080/SharingCount",
+				      
+				      data: {id:element.id},
+				      async:false,	
+					success:function(data){
+	        	   html+=	'<li class="list-group-item d-flex justify-content-between align-items-center" >';
+		            html+=	'<a href ="#" onclick="entryOfSharing('+element.id+')" style="text-align:left">'+element.title+'</a>';
+		         		  
+		         			html+=	' <span class="badge  badge-pill " style="color:gray;text-align:right !important;">'+data+'</span></li>';
+		           
+					}});
+
+	        
+	        });
+	        document.getElementById('sharing2List').innerHTML = html;
+	        document.getElementById('kamuran').innerHTML = data[0].category.categoryName;
+	        
+	        
+
+	      }
+
+	    
+	    	
+	    });
+	  
+    
+  
+}
+
+
+function entryPost(){
+	
+	
+	debugger;
+	let x = document.getElementById('entryPost').value;
+	 $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8080/postEntry",
+	      data: JSON.stringify({"entry":x, "postId":sharingId}),
+	      contentType: "application/json",
+	      async:false,
+
+	      success: function (data) {
+	    	  
+
+				console.log("sdjklasjdasj");
+	    	  
+	    	  entryOfSharing(sharingId);
+	        
+
+	      }
+
+	    
+	    	
+	    });
+	
+	
+	
+}
+
+
+
+function sharing2List(){
+	
+    $.ajax({
+      method: "GET",
+      url: "http://localhost:8080/sharingList",
+     
+
+      success: function (data) {
+    	  
+    	var html='';
+    	debugger;
+        data.forEach(element => {
+			$.ajax({ method: "GET", url: "http://localhost:8080/SharingCount",
+			      
+			      data: {id:element.id},
+			      async:false,	
+				success:function(data){
+		            html+=	'<li class="list-group-item d-flex justify-content-between align-items-center" >';
+
+		            html+=	'<a href ="#" onclick="entryOfSharing('+element.id+')" style="text-align:left">'+element.title+'</a>';
+		         			html+=	' <span class="badge  badge-pill " style="color:gray;text-align:right !important;">'+data+'</span></li>';
+		      
+				}
+			})
+         
+
+
+
+        });
+        
+        
+       
+        document.getElementById('sharing2List').innerHTML = html;
+
+      }
+
+    });
+    
+  
+}
+
+
+
+
+
+
+</script>
+
+	<script>
+function like(deger,sayac){
+
+
+	
+	
+
+	debugger
+	 $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8080/postLike",
+		
+	      data: JSON.stringify({"entryId":deger,"rating":true}),
+	      contentType: "application/json",
+	      async:false,
+
+	      success: function (data) {
+	    	  
+				if(data.lastLike===true){
+					document.getElementById('sayac'+sayac).innerHTML = data.likeCount;
+					document.getElementById('sayac'+sayac).style.color="red";
+					document.getElementById('down'+sayac).style.color="#3c96a5";
+					document.getElementById('down'+sayac).innerHTML = data.dislikeCount;
+					
+				}
+				else if(data.lastLike===false){
+					document.getElementById('sayac'+sayac).innerHTML = data.likeCount;
+					document.getElementById('sayac'+sayac).style.color="#3c96a5";					
+				}
+				else{
+					document.getElementById('sayac'+sayac).innerHTML = data.likeCount;
+
+					document.getElementById('sayac'+sayac).style.color="#3c96a5";					
+				}
+	    	  
+	    	  
+	        
+
+	      }
+
+	    
+	    	
+	    });		
+} 
+function dislike(id,sayac){
+	
+
+	
+	 $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8080/postLike",
+	      data: JSON.stringify({"entryId":id,"rating":false}),
+	      contentType: "application/json",
+	      async:false,
+
+	      success: function (data) {
+	    	  
+
+				if(data.lastLike===false){
+					document.getElementById('sayac'+sayac).innerHTML = data.likeCount;
+					document.getElementById('down'+sayac).innerHTML = data.dislikeCount;
+					document.getElementById('down'+sayac).style.color="red";
+					document.getElementById('sayac'+sayac).style.color="#3c96a5";
+					
+				}
+				else if(data.lastLike===true){
+					document.getElementById('down'+sayac).innerHTML = data.dislikeCount;
+					document.getElementById('down'+sayac).style.color="#3c96a5";					
+				}
+				else{
+
+					document.getElementById('down'+sayac).innerHTML = data.dislikeCount;
+					document.getElementById('down'+sayac).style.color="#3c96a5";					
+				}
+	        
+
+	      }
+
+	    
+	    	
+	    });		
+} 
+
+
+</script>
+
+
+
+	<script>
+
+
+ 
+ function SharingList(){
+	  $.ajax({
+	      method: "GET",
+	      url: "http://localhost:8080/sharingList",
+	      async: false,
+	     
+
+	      success: function (data) {
+	    	  
+	    	var html='';
+	        data.forEach(element => {    
+	        	 $.ajax({
+	       	      method: "GET",
+	       	      url: "http://localhost:8080/getEntryOfSharing",
+	       	      
+	       	      data: {id:element.id},
+	       	      async:false,
+	       	      success:function(data){
+	 	        	 html+=	'<div class="card-body">';
+	        		 html+=	' <h5 class="card-title">'+element.title+'</h5>';
+	        		 	if(data[0].likecontrol===null){
+	 			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
+	 					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	 						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
+	 						 html+='<hr>';
+	 						 html+=	'  </div>	'; }
+	        		 	else{
+	        		 		 if(data[0].likecontrol[0].rating===null){
+	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+element.postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
+	        						 html+='<hr>';
+	        						 html+=	'  </div>	';
+	        		        }
+	        		        else if(data[0].likecontrol[0].rating===true){
+	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" style="color:red">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
+	        						 html+='<hr>';
+	        						 html+=	'  </div>	';
+	        		        }
+	        				
+	        		        else {
+	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" >'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down" style="color:red">'+data[0].dislikeCount+'</i> </a></footer>';
+	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
+	        						 html+='<hr>';
+	        						 html+=	'  </div>	';
+	        		        }
+	        		 	}
+	       	      }
+	        	 })
+     
+	        });
+	        document.getElementById('sharingList').innerHTML = html;
+
+	      }	
+	    });
+	  
+	}
+ 
+ function entryOfSharing(id){
+		
+	 
+	 sharingId =id;
+	 
+	 var html='';
+	 
+	 $.ajax({
+	      method: "GET",
+	      url: "http://localhost:8080/getEntryOfSharing",
+	      
+	      data: {id:id},
+	      async:false,
+	     
+
+	      success: function (data) {
+	    	  
+	    		 html+=	'<div class="card-body">';
+        		 html+=	' <h5 class="card-title">'+data[0].title+'</h5>';
+	    		
+	    	
+	        data.forEach(element => {
+			if(element.likecontrol===null){
+		       	 html+=	' <p class="card-text">'+element.entry+'</p>';
+				 html+=	' <footer ><a class="link" href=""><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+					 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
+					 html+='<hr>';
+			}
+			else{
+				 if(element.likecontrol[0].rating===null){
+			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
+						 html+='<hr>';
+	  	
+		        }
+		        else if(element.likecontrol[0].rating===true){
+			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" style="color:red">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
+						 html+='<hr>';
+		        }
+				
+		        else {
+			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" >'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down" style="color:red">'+element.dislikeCount+'</i> </a></footer>';
+						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
+						 html+='<hr>';
+		        }
+			
+				
+			}
+	       
+		
+	        
+	       
+
+	        
+	        });
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	
+	        
+	        
+	        
+	        
+
+	      }
+
+	    
+	    	
+	    });
+	 
+	 html+='<hr>';
+ 	html+='<form class="mb-5">';
+ 	html+='<div class="form-group">';
+ 	html+='<label for="exampleFormControlTextarea1">Entry Giriniz</label>';
+ 	html+='<textarea class="form-control" id="entryPost" rows="3"></textarea>';
+ 	html+='</div>';
+ 	html+='<a onclick="entryPost()"  class="button btn btn-primary">Gönder</a>';
+ 	html+='</form>';
+	  
+ 	document.getElementById('sharingList').innerHTML = html;
+  
+}
+ 
+
+
+ </script>
+
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.full.min.js"></script>
+
+</html>
