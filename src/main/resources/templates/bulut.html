@@ -3,7 +3,6 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,14 +22,12 @@
 <title>Bulut Sözlük</title>
 
 <style>
-.topnav a:hover {<!--
+.topnav a:hover {
 	border-bottom: 3px solid #279bc7;
-	-->
 }
 
-.topnav a.active {<!--
+.topnav a.active {
 	border-bottom: 3px solid #3c96a5;
-	-->
 }
 
 header {
@@ -88,6 +85,7 @@ body {
 	padding: 14px 16px;
 	text-decoration: none;
 	font-size: 15px;
+	border-bottom: 3px;
 }
 
 header {
@@ -128,25 +126,6 @@ header {
 
 .link {
 	color: #3c96a5 !important;
-}
-
-#buttons {
-	
-}
-
-#word {
-	height: 50px;
-	width: 100px;
-	margin-right: 10px;
-	margin-top: 10px;
-	font-family: Comic Sans MS;
-	align-self: auto;
-	word-wrap: break-word;
-	font-size: 13px;
-	white-space: nowrap;
-	border: 1px solid #000000;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 </style>
 </head>
@@ -190,7 +169,7 @@ header {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Kapat</button>
-					<a th:href="@{/logout}" class="btn btn-info" role="button">çıkış</a>
+						<a th:href="@{/logout}" class="btn btn-info" role="button">çıkış</a>
 
 				</div>
 			</div>
@@ -222,17 +201,11 @@ header {
 				</form>
 			</div>
 			<div class="col-md-3 text-right" style="margin-top: 20px">
-<<<<<<< HEAD
-				<a th:href="@{/logout}">çıkış</a> <a href="/register"> kayıt ol</a>
-			</div>
-			<div>
-				<span th:text="${userId}">s</span>
-=======
 				<a th:href="@{/logout}" >çıkış</a>
 			
 				
->>>>>>> 7ff82c96306ba0f0707a5d524b169b007c562263
 			</div>
+			<div><span th:text="${userId}">s</span></div>
 		</div>
 
 
@@ -598,10 +571,12 @@ function entryPost(){
 	        
 
 	      }
- 	
+
+	    
+	    	
 	    });
 	
-	  hetiemel='';
+	
 	
 }
 
@@ -656,45 +631,13 @@ function sharing2List(){
 </script>
 
 	<script>
-	let deger="sdfs";
-	let hetiemel='';
-	function getaks1(deger){
-		
-		deger = unescape(deger);
-		hetiemel+=deger+' ';
-			document.getElementById('entryPost').innerHTML = hetiemel;
-		
-	}
-	
-	function getaks(){
-		let html='';
-        $.ajax({
-          method: "GET",
-	      url: "http://localhost:8080/getWord",
-	      async:false,
-          success: function (data) {
-            data.forEach(element => {
-            	 var colors = ['#C79344', '#9CD832', '#4FC489','#2FC1AF','#249CCC','#0C45AA','#7622BB','#D623B0'];
-             	  var random_color = colors[Math.floor(Math.random() * colors.length)];
-      	      html += '<a class="button btn btn-warning" id="word" type="button" title="'+element.word+'" style="background-color:'+random_color+'!important" onclick=getaks1("'+escape(element.word)+'");>'+element.word+'</a>';	
-      	   
-
-            });
-   
-          }
-
-        });
-        
-		document.getElementById('buttons').innerHTML = html;
-
-	
-		
-		
-	}			
-	
 function like(deger,sayac){
 
 
+	
+	
+
+	debugger
 	 $.ajax({
 	      type: "POST",
 	      url: "http://localhost:8080/postLike",
@@ -924,27 +867,14 @@ function dislike(id,sayac){
  	html+='<label for="exampleFormControlTextarea1">Entry Giriniz</label>';
  	html+='<textarea class="form-control" id="entryPost" rows="3"></textarea>';
  	html+='</div>';
-<<<<<<< HEAD
- 	html +='</form>';
-
- 	html +='<a onclick="entryPost()"  class="button btn btn-primary">Gönder</a>';
- 	html += '</div>';
- 	html += '</div>';
- 	html +='<div class="container">';
- 	html += '<div>';
- 	html +='<div id="buttons"></div>';
-	
-	html += '</div>';
-=======
  	html+='<a onclick="entryPost()"  class="button btn btn-primary" ">Gönder</a>';
 
  	html+='</form>';
 	  
->>>>>>> 7ff82c96306ba0f0707a5d524b169b007c562263
  	document.getElementById('sharingList').innerHTML = html;
- 	getaks();
+  
 }
-
+ 
 
 
  </script>

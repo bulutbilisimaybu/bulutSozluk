@@ -16,9 +16,7 @@ import com.example.demo.model.User;
 import com.example.demo.model.Word;
 import com.example.demo.model.api.EntryAPI;
 import com.example.demo.model.api.LikeAPI;
-
 import com.example.demo.repository.ConjunctionRepository;
-
 import com.example.demo.repository.WordRepository;
 import com.example.demo.services.EntryServices;
 import com.example.demo.services.GetFunction;
@@ -43,6 +41,8 @@ public class PostRest {
 	@Autowired 
 	WordRepository wordRepository;
 
+	
+	
 	@PostMapping("/postEntry")
 	public ResponseEntity<Object> postEntry(@RequestBody EntryAPI entry) {
 		boolean deger=entryService.entryControl(entry);
@@ -70,6 +70,7 @@ public class PostRest {
 			entryAPI.setLastLike(likeService.getLastLike(entry, user).get(0).isRating());
 		else
 			entryAPI.setLastLike(null);
+
 		return new ResponseEntity<Object>(entryAPI, HttpStatus.OK);
 	}
 	@PostMapping("/postWord")
