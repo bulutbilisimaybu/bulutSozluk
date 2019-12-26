@@ -12,13 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Entry;
 import com.example.demo.model.User;
+import com.example.demo.model.api.EntryAPI;
 import com.example.demo.repository.EntryRepository;
+import com.example.demo.repository.WordRepository;
 
 @Service
 public class EntryServices {
 	@Autowired
 	EntryRepository entryRepository;
-
+	
+	@Autowired
+	WordRepository wordRepository;
 	@Autowired
 	SharingService sharingService;
 
@@ -61,6 +65,25 @@ public class EntryServices {
 	public ArrayList<Entry> getEntryByContent(String content){
 		ArrayList<Entry> entryList=entryRepository.findTop10ByContentIgnoreCaseContaining(content);
 		return entryList;
+	}
+	
+	
+	public boolean entryControl(EntryAPI entry) {
+		String[] inputlist=entry.getEntry().split(" ");
+		boolean deger=true;
+		
+		for (String a : inputlist) {
+			if(wordRepository.findByWordIgnoreCaseContaining(a)==null)
+			{
+			deger=false;
+			break;
+			}
+			
+		}
+	    if(deger) {
+			entrySave(entry.getEntry(), entry.getPostId());
+	    }
+		return deger;
 	}
 
 }
