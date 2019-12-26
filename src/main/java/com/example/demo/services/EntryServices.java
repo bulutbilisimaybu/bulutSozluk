@@ -73,7 +73,7 @@ public class EntryServices {
 		boolean deger=true;
 		
 		for (String a : inputlist) {
-			if(wordRepository.findByWordIgnoreCaseContaining(a)==null)
+			if(wordRepository.findByWordIgnoreCaseContaining(a).size()==0)
 			{
 			deger=false;
 			break;
