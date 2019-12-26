@@ -8,21 +8,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Category;
+import com.example.demo.model.Conjunction;
 import com.example.demo.model.Entry;
 import com.example.demo.model.Sharing;
 import com.example.demo.model.User;
+import com.example.demo.model.Word;
 import com.example.demo.model.api.EntryAPI;
 import com.example.demo.repository.AdvertisingRepository;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.ConjunctionRepository;
 import com.example.demo.repository.EntryRepository;
 import com.example.demo.repository.LikeRepository;
 import com.example.demo.repository.SharingRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.WordRepository;
 
 @Service
 public class ListFunction {
 	@Autowired
+	WordRepository wordRepository;
+	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	ConjunctionRepository conjuctionRepository;
 
 	@Autowired
 	SharingRepository sharingRepository;
@@ -78,6 +86,13 @@ public class ListFunction {
 		}
 
 		return entryApiList;
+	}
+	
+	public ArrayList<Word> wordListGet() {
+		return (ArrayList<Word>) wordRepository.findAll();
+	}
+	public ArrayList<Conjunction> conjuctionListGet() {
+		return (ArrayList<Conjunction>) conjuctionRepository.findAll();
 	}
 
 }

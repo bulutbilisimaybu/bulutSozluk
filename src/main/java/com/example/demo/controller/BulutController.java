@@ -23,6 +23,7 @@ public class BulutController {
     @Autowired
     private UserService userService;
     
+    
 	@GetMapping("/bulutPage")
 	public ModelAndView passParametersWithModelAndView() {
 		ModelAndView modelAndView = new ModelAndView("bulut");
@@ -39,6 +40,17 @@ public class BulutController {
 	public String register(Model model) {
 		model.addAttribute("User", new User());
 		return "register";
+	}
+	
+	@GetMapping("/wordAdd")
+	public String wordAdd() {
+	
+		return "wordAdd";
+	}
+	@GetMapping("/conjuctionAdd")
+	public String conjuctionAdd() {
+	
+		return "conjuction";
 	}
 
 

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src='main.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body onload="conjuctionList();">
+    <div class="container">
+            <div style="background-image: url(https://www.cybermagonline.com/img/sayfa/bulut-iletisim-avantaj-a1.jpg); height:125px;width: 100%;" ></div>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                      <div class="form-group">
+                     <label for="exampleInputEmail1"><b>Bağlaç Ekle</b></label>
+                     <input  id="conjuction" type="text"   class="form-control"  aria-describedby="emailHelp" placeholder="Bağlaç Giriniz!" />      
+                     <a onclick="addConjuction()" class="button btn btn-primary">Ekle</a>
+                    </div>
+                 
+                   </form>
+      
+
+
+
+
+             </div>
+
+            <div class="col-md-6">
+                
+                <ul class="list-group" id="conjuctionList">
+
+                  </ul>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+    
+    
+    
+    function conjuctionList(){
+	
+        $.ajax({
+          method: "GET",
+          url: "http://localhost:8080/conjuctionList",
+         
+    	  
+          success: function (data) {
+              
+            var html='';
+            data.forEach(element => { 
+            
+                
+            html+=	' <li class="list-group-item d-flex justify-content-between align-items-center"> ';	
+            html+=element.conjuction;
+            html+=' <a onclick="deleteConjuction('+element.id+')"  class="btn btn-primary"><span class="badge badge-primary badge-pill">X</span></a></li>'
+            
+    
+            });
+                     
+            document.getElementById('conjuctionList').innerHTML = html;
+    
+          }
+    
+        });
+        
+      
+    }
+    </script>
+       <script>
+    function deleteConjuction(id){
+	 $.ajax({
+
+		 
+	
+	      type: "POST",
+	      
+	      url: "http://localhost:8080/postConjuction",
+	   	  data: JSON.stringify({"id":id}),
+	      contentType: "application/json",
+	   
+
+	      success: function (data) {
+	    	 
+	    	  conjuctionList();
+	           
+	          }
+
+	    
+	    	
+	    });	
+}
+
+
+
+
+
+</script>
+       <script>
+    function addConjuction(){
+    	debugger;
+    	
+   	let conjuction= document.getElementById('conjuction').value;
+	 $.ajax({
+
+		 
+	
+	      type: "POST",
+	      
+	      url: "http://localhost:8080/addconjuction",
+	      data: JSON.stringify({"conjuction":conjuction}),
+	      contentType: "application/json",
+	   
+
+	      success: function (data) {
+	    	 
+	    	  conjuctionList();
+	           
+	          }
+
+	    
+	    	
+	    });	
+}
+
+
+
+
+
+</script>
+
+
+</body>
+
+
+
+ <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</html>
+
+
+
