@@ -45,10 +45,7 @@ header {
 	background-color: white !important;
 }
 
-a {
-	color: #074E8C;
-	background-color: white !important;
-}
+
 
 .scrollbar {
 	margin-left: 30px;
@@ -104,9 +101,7 @@ header {
 	margin-bottom: 25px;
 }
 
-a {
-	color: #074E8C;
-}
+
 
 /*
  *  STYLE 15
@@ -208,7 +203,7 @@ a {
 			<div class="col-md-3 text-right" style="margin-top: 20px">
 				<a th:href="@{/logout}" >çıkış</a>
 			
-				<a href="/register"> kayıt ol</a>
+				
 			</div>
 			<div><span th:text="${userId}">s</span></div>
 		</div>
@@ -549,7 +544,7 @@ function sharingOfCategory(id){
 
 function entryPost(){
 	
-	
+	var html='';
 	debugger;
 	let x = document.getElementById('entryPost').value;
 	 $.ajax({
@@ -558,13 +553,21 @@ function entryPost(){
 	      data: JSON.stringify({"entry":x, "postId":sharingId}),
 	      contentType: "application/json",
 	      async:false,
-
+		  
 	      success: function (data) {
-	    	  
 
-				console.log("sdjklasjdasj");
+	    	  if(data){
+	    		  entryOfSharing(sharingId);
+	    	  }		
+	    	  else{
+	    		 entryOfSharing(sharingId);
+	             html+='  <div class="alert alert-danger" role="alert">Kelimeler uyuşmuyor</div>';
+	             document.getElementById('alert-entry').innerHTML = html;
+	    	
+	    	  }
+				
+	    	    
 	    	  
-	    	  entryOfSharing(sharingId);
 	        
 
 	      }
@@ -860,10 +863,12 @@ function dislike(id,sayac){
 	 html+='<hr>';
  	html+='<form class="mb-5">';
  	html+='<div class="form-group">';
+ 	html+='<div id="alert-entry"></div>'
  	html+='<label for="exampleFormControlTextarea1">Entry Giriniz</label>';
  	html+='<textarea class="form-control" id="entryPost" rows="3"></textarea>';
  	html+='</div>';
- 	html+='<a onclick="entryPost()"  class="button btn btn-primary">Gönder</a>';
+ 	html+='<a onclick="entryPost()"  class="button btn btn-primary" ">Gönder</a>';
+
  	html+='</form>';
 	  
  	document.getElementById('sharingList').innerHTML = html;
