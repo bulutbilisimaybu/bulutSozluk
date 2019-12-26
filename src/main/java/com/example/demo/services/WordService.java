@@ -19,7 +19,7 @@ public class WordService {
 		ArrayList<Word> randWord = new ArrayList<>();
 		Random rand = new Random();
 		
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 7; i++) {
 
 			int number = rand.nextInt(words.size());
 			randWord.add(words.get(number));
