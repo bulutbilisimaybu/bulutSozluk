@@ -234,7 +234,7 @@ header {
 		 
 		 $.ajax({
 		      method: "GET",
-		      url: "http://localhost:8080/getentrypost",
+		      url: "/getentrypost",
 		      
 		      data: {id:id},
 		      async:false,
@@ -297,7 +297,7 @@ if(key.charAt(0)=="#"){
 
 	$.ajax({
 	    method: "GET",
-	    url: "http://localhost:8080/entryListByContent",
+	    url: "/entryListByContent",
 	    data: {content:key},
 		async:false,
 	    success: function (data) {
@@ -325,7 +325,7 @@ else{
 
 	$.ajax({
 	    method: "GET",
-	    url: "http://localhost:8080/SharingListByTitle",
+	    url: "/SharingListByTitle",
 	    data: {title:key},
 		async:false,
 	    success: function (data) {
@@ -444,7 +444,7 @@ let sharingId=0;
 		var deger=false;
 		 $.ajax({
 		      method: "GET",
-		      url: "http://localhost:8080/userList",
+		      url: "/userList",
 		      data: {
 		    	  	mail: $("#username").val(),
 		            password: $("#password").val()
@@ -482,7 +482,7 @@ function categoryList(){
 	
     $.ajax({
       method: "GET",
-      url: "http://localhost:8080/categoryList",
+      url: "/categoryList",
      
 
       success: function (data) {
@@ -516,7 +516,7 @@ function sharingOfCategory(id){
 	
 	 $.ajax({
 	      method: "GET",
-	      url: "http://localhost:8080/getSharingOfCategory",
+	      url: "/getSharingOfCategory",
 	      
 	      data: {id:id},
 	     
@@ -526,7 +526,7 @@ function sharingOfCategory(id){
 	    	  
 	    	var html='';
 	        data.forEach(element => {
-				$.ajax({ method: "GET", url: "http://localhost:8080/SharingCount",
+				$.ajax({ method: "GET", url: "/SharingCount",
 				      
 				      data: {id:element.id},
 				      async:false,	
@@ -564,7 +564,7 @@ function entryPost(){
 	debugger;
 	 $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8080/postEntry",
+	      url: "/postEntry",
 	      data: JSON.stringify({"entry":x, "postId":sharingId}),
 	      contentType: "application/json",
 	      async:false,
@@ -601,7 +601,7 @@ function sharing2List(){
 	
     $.ajax({
       method: "GET",
-      url: "http://localhost:8080/sharingList",
+      url: "/sharingList",
      
 
       success: function (data) {
@@ -609,7 +609,7 @@ function sharing2List(){
     	var html='';
     	debugger;
         data.forEach(element => {
-			$.ajax({ method: "GET", url: "http://localhost:8080/SharingCount",
+			$.ajax({ method: "GET", url: "/SharingCount",
 			      
 			      data: {id:element.id},
 			      async:false,	
@@ -655,7 +655,7 @@ function like(deger,sayac){
 	debugger
 	 $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8080/postLike",
+	      url: "/postLike",
 		
 	      data: JSON.stringify({"entryId":deger,"rating":true}),
 	      contentType: "application/json",
@@ -695,7 +695,7 @@ function dislike(id,sayac){
 	
 	 $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8080/postLike",
+	      url: "/postLike",
 	      data: JSON.stringify({"entryId":id,"rating":false}),
 	      contentType: "application/json",
 	      async:false,
@@ -745,7 +745,7 @@ function dislike(id,sayac){
 		let html='';
         $.ajax({
           method: "GET",
-	      url: "http://localhost:8080/wordList",
+	      url: "/wordList",
 	      async:false,
           success: function (data) {
             data.forEach(element => {
@@ -776,7 +776,7 @@ function dislike(id,sayac){
  function SharingList(){
 	  $.ajax({
 	      method: "GET",
-	      url: "http://localhost:8080/sharingList",
+	      url: "/sharingList",
 	      async: false,
 	     
 
@@ -786,7 +786,7 @@ function dislike(id,sayac){
 	        data.forEach(element => {    
 	        	 $.ajax({
 	       	      method: "GET",
-	       	      url: "http://localhost:8080/getEntryOfSharing",
+	       	      url: "/getEntryOfSharing",
 	       	      
 	       	      data: {id:element.id},
 	       	      async:false,
@@ -844,7 +844,7 @@ function dislike(id,sayac){
 	 
 	 $.ajax({
 	      method: "GET",
-	      url: "http://localhost:8080/getEntryOfSharing",
+	      url: "/getEntryOfSharing",
 	      
 	      data: {id:id},
 	      async:false,
