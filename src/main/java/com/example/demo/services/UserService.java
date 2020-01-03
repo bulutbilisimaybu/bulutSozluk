@@ -49,11 +49,27 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        Role userRole = roleRepository.findByRole("kullanici");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        userRepository.save(user);
+    	if(userRepository.findAll().size()==0) {
+    		 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    	        user.setActive(1);
+    	        Role userRole = roleRepository.findByRole("admin");
+    	        
+    	        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+    	        userRepository.save(user);
+    		
+    	}
+    	else {
+    		 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+ 	        user.setActive(1);
+ 	        Role userRole = roleRepository.findByRole("kullanici");
+ 	        
+ 	        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+ 	        userRepository.save(user);
+ 		
+    		
+    		
+    	}
+       
     }
 
 
