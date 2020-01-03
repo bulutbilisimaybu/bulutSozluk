@@ -68,22 +68,44 @@ public class EntryServices {
 	}
 	
 	
-	public boolean entryControl(EntryAPI entry) {
+	public Boolean entryControl(EntryAPI entry) {
 		String[] inputlist=entry.getEntry().split(" ");
-		boolean deger=true;
-		
-		for (String a : inputlist) {
-			if(wordRepository.findByWordIgnoreCaseContaining(a).size()==0)
+		Boolean deger=true;
+		if(inputlist.length==0)
+		{
+			deger=null;
+			
+		}
+		else
+		{
+			if(inputlist[0]=="")
 			{
-			deger=false;
-			break;
+				deger=null;
+			}
+			else
+			{
+				for (String a : inputlist) {
+					if(wordRepository.findByWordIgnoreCase(a).size()==0)
+					{
+						
+					deger=false;
+					break;
+					}
+					
+				}
+			    if(deger) {
+					entrySave(entry.getEntry(), entry.getPostId());
+			    }
+				
+				
 			}
 			
 		}
-	    if(deger) {
-			entrySave(entry.getEntry(), entry.getPostId());
-	    }
+		
+	
 		return deger;
+		
+		
 	}
 
 }
