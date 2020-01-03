@@ -45,7 +45,7 @@ public class PostRest {
 	
 	@PostMapping("/postEntry")
 	public ResponseEntity<Object> postEntry(@RequestBody EntryAPI entry) {
-		boolean deger=entryService.entryControl(entry);
+		Boolean deger=entryService.entryControl(entry);
 		return new ResponseEntity<Object>(deger, HttpStatus.OK);
 
 	}

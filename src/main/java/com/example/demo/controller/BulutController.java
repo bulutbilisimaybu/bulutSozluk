@@ -31,7 +31,8 @@ public class BulutController {
        
         
         User user = userService.findUserByMail(auth.getName());
-        modelAndView.addObject("userName", "kullanıcıADI: " + user.getName() + " MAİL ADRESİ(" + user.getMail() + ")");
+        modelAndView.addObject("userName", user.getName());
+     
       
 	    return modelAndView;
 	}
