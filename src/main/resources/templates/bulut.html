@@ -557,12 +557,14 @@ function sharingOfCategory(id){
 
 
 function entryPost(){
-	
+	debugger;
 	var html='';
 	
 	let x = document.getElementById('entryPost').value;
+	
 	debugger;
 	 $.ajax({
+		 
 	      type: "POST",
 	      url: "/postEntry",
 	      data: JSON.stringify({"entry":x, "postId":sharingId}),
@@ -570,10 +572,20 @@ function entryPost(){
 	      async:false,
 		  
 	      success: function (data) {
-
+	    	  
+	    	  debugger;
 	    	  if(data){
 	    		  entryOfSharing(sharingId);
-	    	  }		
+	    	  }
+	    	  
+	    	  else if(data=="")
+	    		  {
+	    		  entryOfSharing(sharingId);
+		             html+='  <div class="alert alert-danger" role="alert">Boş</div>';
+		             document.getElementById('alert-entry').innerHTML = html;
+	    		  }
+	    	
+	    	
 	    	  else{
 	    		 entryOfSharing(sharingId);
 	             html+='  <div class="alert alert-danger" role="alert">Kelimeler uyuşmuyor</div>';

@@ -9,5 +9,5 @@ import com.example.demo.model.Word;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-	ArrayList<Word> findByWordIgnoreCaseContaining(String word);
+	ArrayList<Word> findByWordIgnoreCase(String word);
 }
