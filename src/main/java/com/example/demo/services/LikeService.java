@@ -51,6 +51,7 @@ public class LikeService {
 			Like like = new Like();
 			like.setEntry(entry);
 			like.setRating(rating);
+			entry.setTotal(entry.getTotal()+1);
 			like.setUser(user);
 			likeRepository.save(like);
 		} else {
@@ -58,11 +59,13 @@ public class LikeService {
 			if (like.isRating() == rating)// eger mevcut like sayfadan gelen değere eşit ise likeı sileriz
 			{	
 				like.setUser(null);
+				entry.setTotal(entry.getTotal()-1);
 				like.setEntry(null);
 				likeRepository.save(like);
 				likeRepository.delete(like);
 			} else {// eger gelen like değeri farklı ise mevcut olanı silip yerine yenisini ekleriz
 				like.setUser(null);
+
 				like.setEntry(null);
 				likeRepository.save(like);
 				likeRepository.delete(like);
@@ -71,6 +74,7 @@ public class LikeService {
 				like1.setEntry(entry);
 				like1.setRating(rating);
 				like1.setUser(user);
+				
 				likeRepository.save(like1);
 			}
 		}

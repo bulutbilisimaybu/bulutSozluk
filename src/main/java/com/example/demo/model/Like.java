@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="entryLike")
 public class Like 
@@ -20,7 +22,6 @@ public class Like
 	
 	@Column 
 	private boolean rating;
-	
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +56,7 @@ public class Like
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
+	@JsonIgnore
 	private User user;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

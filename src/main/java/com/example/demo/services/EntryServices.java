@@ -45,6 +45,7 @@ public class EntryServices {
 		e.setSharing(sharingService.getSharing(postId));
 		e.setDate(sistemTarihiniGetir("dd.MM.yyyy H:mm"));
 		e.setUser(user);
+		e.setTotal((long) 0);
 		entryRepository.save(e);
 
 	}

@@ -63,8 +63,8 @@ public class GetRest
 			entryApi.setDislikeCount(likeService.likeCount(entry, false));
 			entryApi.setPostId(entry.getId());
 			entryApi.setDate(entry.getDate());
-			
-			
+			entryApi.setNickname(entry.getUser().getMail());
+
 			entryApi.setLikecontrol(likeService.getLastLike(entry, user));
 			entryApiList.add(entryApi);
 			
@@ -89,6 +89,8 @@ public class GetRest
 	
 	@GetMapping("/getentrypost")
 	public ResponseEntity<Object>getentrypost(@RequestParam Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByMail(auth.getName());
 		Entry entry = fonksiyon.getentrypost(id);		
 		EntryAPI entryApi = new EntryAPI();
 		entryApi.setEntry(entry.getContent());
@@ -97,8 +99,8 @@ public class GetRest
 		entryApi.setDislikeCount(likeService.likeCount(entry, false));
 		entryApi.setPostId(entry.getId());
 		entryApi.setDate(entry.getDate());
-		
-		
+		entryApi.setNickname(entry.getUser().getMail());
+		entryApi.setLikecontrol(likeService.getLastLike(entry, user));
 		return new ResponseEntity<>(entryApi, HttpStatus.OK);
 	}
 	
