@@ -795,21 +795,21 @@ function dislike(id,sayac){
 	        		 html+=	' <h5 class="card-title">'+element.title+'</h5>';
 	        		 	if(data[0].likecontrol===null){
 	 			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
-	 					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+data[0].entry+'"><i class="fab fa-twitter"></i></a><a class="link"  onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link"  onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	 					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
 	 						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
 	 						 html+='<hr>';
 	 						 html+=	'  </div>	'; }
 	        		 	else{
 	        		 		 if(data[0].likecontrol[0].rating===null){
 	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
-	        					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+data[0].entry+'"><i class="fab fa-twitter"></i></a><a class="link"  onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link"  onclick="dislike('+data[0].postId+','+element.postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+element.postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
 	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
 	        						 html+='<hr>';
 	        						 html+=	'  </div>	';
 	        		        }
 	        		        else if(data[0].likecontrol[0].rating===true){
 	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
-	        					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+data[0].entry+'"><i class="fab fa-twitter"></i></a><a class="link"  onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" style="color:red">'+data[0].likeCount+'</i></a><a class="link"  onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" style="color:red">'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down">'+data[0].dislikeCount+'</i> </a></footer>';
 	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
 	        						 html+='<hr>';
 	        						 html+=	'  </div>	';
@@ -817,7 +817,7 @@ function dislike(id,sayac){
 	        				
 	        		        else {
 	        			       	 html+=	' <p class="card-text">'+data[0].entry+'</p>';
-	        					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+data[0].entry+'"><i class="fab fa-twitter"></i></a><a class="link"  onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" >'+data[0].likeCount+'</i></a><a class="link"  onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down" style="color:red">'+data[0].dislikeCount+'</i> </a></footer>';
+	        					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+data[0].postId+','+data[0].postId+')"><i id="sayac'+data[0].postId +'" class="fas fa-angle-up" >'+data[0].likeCount+'</i></a><a class="link" href="#" onclick="dislike('+data[0].postId+','+data[0].postId+')"><i id="down'+data[0].postId+'" class="fas fa-angle-down" style="color:red">'+data[0].dislikeCount+'</i> </a></footer>';
 	        						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+data[0].date+'</span></footer>';
 	        						 html+='<hr>';
 	        						 html+=	'  </div>	';
@@ -859,28 +859,28 @@ function dislike(id,sayac){
 	        data.forEach(element => {
 			if(element.likecontrol===null){
 		       	 html+=	' <p class="card-text">'+element.entry+'</p>';
-				 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+element.entry+'"><i class="fab fa-twitter"></i></a><a class="link" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link"  onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+				 html+=	' <footer ><a class="link" href=""><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
 					 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
 					 html+='<hr>';
 			}
 			else{
 				 if(element.likecontrol[0].rating===null){
 			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
-					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+element.entry+'"><i class="fab fa-twitter"></i></a><a class="link" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link"  onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
 						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
 						 html+='<hr>';
 	  	
 		        }
 		        else if(element.likecontrol[0].rating===true){
 			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
-					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+element.entry+'"><i class="fab fa-twitter"></i></a><a class="link" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" style="color:red">'+element.likeCount+'</i></a><a class="link"  onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" style="color:red">'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down">'+element.dislikeCount+'</i> </a></footer>';
 						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
 						 html+='<hr>';
 		        }
 				
 		        else {
 			       	 html+=	' <p class="card-text">'+element.entry+'</p>';
-					 html+=	' <footer ><a class="link" href="https://www.facebook.com/sharer/sharer.php?u=http://172.25.4.82:8080/bulutPage" target="_blank"><i class="fab fa-facebook-f"></i></a><a class="link" href="http://twitter.com/intent/tweet?text='+element.entry+'"><i class="fab fa-twitter"></i></a><a class="link" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" >'+element.likeCount+'</i></a><a class="link"  onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down" style="color:red">'+element.dislikeCount+'</i> </a></footer>';
+					 html+=	' <footer ><a class="link" href="#"><i class="fab fa-facebook-f"></i></a><a class="link" href="#"><i class="fab fa-twitter"></i></a><a class="link" href="#" onclick="like('+element.postId+','+element.postId+')"><i id="sayac'+element.postId +'" class="fas fa-angle-up" >'+element.likeCount+'</i></a><a class="link" href="#" onclick="dislike('+element.postId+','+element.postId+')"><i id="down'+element.postId+'" class="fas fa-angle-down" style="color:red">'+element.dislikeCount+'</i> </a></footer>';
 						 html+=	'<footer style="text-align:right;color:gray" ><span style="font-size: 11px">'+element.date+'</span></footer>';
 						 html+='<hr>';
 		        }
