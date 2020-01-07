@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.repository.EntryRepository;
 import com.example.demo.services.EntryServices;
 import com.example.demo.services.ListFunction;
 import com.example.demo.services.SharingService;
@@ -71,5 +72,13 @@ public class GetListRest {
 	{
 		return new ResponseEntity<>(fonksiyon.conjuctionListGet(), HttpStatus.OK);
 	}
+	@Autowired
+	EntryRepository repos;
+	@GetMapping("/favoritentry")
+	public ResponseEntity<Object> Favoriteentry() 
+	{
+		return new ResponseEntity<>(fonksiyon.favoriteentrylist(), HttpStatus.OK);
+	}
+
 
 }

@@ -25,9 +25,21 @@ public class Entry
 	
 	@Column
 	private String content;
+	
+	@Column
+	private Long totalLike;
+
+	public Long getTotal() {
+		return totalLike;
+	}
+
+	public void setTotal(Long total) {
+		this.totalLike = total;
+	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
+	@JsonIgnore
 	private User user;
 	
 	@OneToMany(mappedBy = "entry", cascade = CascadeType.ALL, orphanRemoval = true)
