@@ -12,8 +12,5 @@ public interface EntryRepository  extends JpaRepository<Entry,Long>
 {
 	ArrayList<Entry> findTop10ByContentIgnoreCaseContaining(String content);
 
-	ArrayList<Entry> findTop18ByOrderByTotalLikeDesc();
-
-
 
 }
